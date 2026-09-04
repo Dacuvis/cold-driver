@@ -1,0 +1,17 @@
+{
+  "name": "cold-driver",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "latest",
+    "elysia": "^1.4.30",
+    "mongodb": "6"
+  }
+}
