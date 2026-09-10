@@ -1,32 +1,65 @@
-# React + TypeScript + Vite
+# 🧪 Cold Driver - Frontend API Documentation & Testing Console
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Aplikasi antarmuka web interaktif berbasis **React 19**, **TypeScript**, dan **Vite** yang berfungsi khusus sebagai **konsol dokumentasi dan playground pengujian** untuk REST API backend Cold Driver.
 
-Currently, two official plugins are available:
+Antarmuka ini mempermudah developer dan penguji untuk:
+- Menginspeksi isi koleksi database MongoDB secara visual (*read*).
+- Menguji pengiriman payload dokumen JSON ke endpoint backend tanpa tools eksternal (*write / POST*).
+- Mengetahui status koneksi langsung ke backend API (`http://localhost:3000`).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Panduan Menjalankan Konsol
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. Pastikan Backend Telah Berjalan
+Sebelum menyalakan konsol ini, pastikan server backend Cold Driver sudah aktif di `http://localhost:3000`.
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+### 2. Instalasi Dependensi
+```bash
+bun install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### 3. Menjalankan Mode Development
+```bash
+bun dev
+```
+Buka peramban pada alamat lokal Vite yang muncul di terminal (default: `http://localhost:5173`).
+
+---
+
+## 🛠️ Skrip yang Tersedia
+
+| Perintah | Keterangan |
+| :--- | :--- |
+| `bun dev` | Menjalankan Vite development server dengan HMR |
+| `bun run build` | Kompilasi build antarmuka ke folder `dist/` |
+| `bun run preview` | Menjalankan preview lokal dari hasil build |
+| `bun run lint` | Menjalankan linter cepat menggunakan [Oxlint](https://oxc.rs/) |
+
+---
+
+## 📂 Struktur Kode Konsol
+
+```text
+src/
+├── main.tsx     # Bootstrapping React DOM
+├── App.tsx      # Komponen utama konsol dokumentasi & form pengujian JSON
+├── App.css      # Styling tampilan konsol gelap (Dark Console)
+└── index.css    # Gaya dasar & typography
+```
+
+---
+
+## ⚙️ Target Endpoint Backend
+
+Secara default, konsol ini terhubung ke backend API pada:
+```ts
+const API_URL = 'http://localhost:3000/api'
+```
+Mendukung interaksi langsung dengan resource:
+- `users`
+- `categories`
+- `inventories`
+- `stock-histories`
+- `announcements`
+- `documentations`
