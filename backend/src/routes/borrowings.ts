@@ -40,4 +40,11 @@ export const borrowingRoutes = (database: Database) => new Elysia()
 		}
 		await database.borrowings.updateOne({ id: borrowingId }, { $set: { status: "dikembalikan", tanggalKembali: body.tanggalKembali } });
 		return { ...borrowing, status: "dikembalikan" as const, tanggalKembali: body.tanggalKembali, items: await database.borrowingItems.find({ borrowingId }).toArray() };
-	}, { body: t.Object({ tanggalKembali: t.String(), items: t.Array(t.Object({ itemId: t.Number(), kondisiKembali: t.String() }), { minItems: 1 }) }) });
+	}, { body: t.Object({ tanggalKembali: t.String(), items: t.Array(t.Object({ itemId: t.Number(), kondisiKembali: t.String() }), { minItems: 1 }) }) })
+	.delete("/borrowings/:id", async ({ params }) => {
+		const borrowingId = Number(params.id);
+		const result = await database.borrowings.deleteOne({ id: borrowingId });
+		if (result.deletedCount === 0) return notFound("Peminjaman tidak ditemukan");
+		await database.borrowingItems.deleteMany({ borrowingId });
+		return { success: true, message: "Peminjaman berhasil dihapus" };
+	});
